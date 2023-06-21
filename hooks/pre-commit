@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+# prevent committing to master/main/production/trunk branches
+BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)"
+if [ "$BRANCH_NAME" == "master" ] || [ "$BRANCH_NAME" == "production" ] || [ "$BRANCH_NAME" == "main" ] || [ "$BRANCH_NAME" == "trunk" ]; then
+	echo "Error: commit rejected due to current branch being: $BRANCH_NAME"
+	exit 1
+fi
